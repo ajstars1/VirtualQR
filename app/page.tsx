@@ -30,9 +30,11 @@ export default function Home() {
         }}
         onCameraStreamReady={() => console.log("Camera stream ready")}
         onCameraStreamError={() => console.error("Camera stream error")}
-        onCreated={({ gl }:GlProps) => {
-          gl.setSize(window.innerWidth, window.innerHeight);
-        }}
+        // onCreated={({ gl }:GlProps) => {
+        //   // gl.setSize(window.innerWidth, window.innerHeight);
+        //   gl.setSize(1200, 100);
+        // }}
+        // className="bg-pink-600 "
       >
         <ambientLight />
         <pointLight position={[10, 10, 0]} intensity={10.0} />

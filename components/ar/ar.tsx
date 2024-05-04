@@ -1,6 +1,5 @@
 import {
-  ArToolkitContext,
-  ArToolkitSource,
+  ArToolkitContext
 } from "@ar-js-org/ar.js/three.js/build/ar-threex";
 import { useFrame, useThree } from "@react-three/fiber";
 import React, {
@@ -14,6 +13,7 @@ import React, {
 const ARContext = createContext<ArToolkitContext>({});
 
 const videoDomElemSelector = "#arjs-video";
+
 
 const AR = React.memo(function  AR({
   tracking = true,
@@ -38,6 +38,7 @@ const AR = React.memo(function  AR({
 }) {
   const { gl, camera } = useThree();
 
+  const {ArToolkitContext,ArToolkitSource} = require("@ar-js-org/ar.js/three.js/build/ar-threex");
   const arContext = useMemo(() => {
     const arToolkitSource = new ArToolkitSource({ sourceType });
     const arToolkitContext = new ArToolkitContext({
@@ -54,6 +55,8 @@ const AR = React.memo(function  AR({
     detectionMode,
     patternRatio,
     matrixCodeType,
+    ArToolkitContext,
+    ArToolkitSource,
   ]);
 
   const onResize = useCallback(() => {

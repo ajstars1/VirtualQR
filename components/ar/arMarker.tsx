@@ -1,4 +1,3 @@
-import {ArMarkerControls , ArToolkitContext} from "@ar-js-org/ar.js/three.js/build/ar-threex";
 import { useFrame } from "@react-three/fiber"
 import React, { useEffect, useRef, useState } from "react"
 
@@ -25,9 +24,14 @@ const ARMarker = ({
 }: ARMarkerProps) => {
   const markerRoot = useRef();
  
-  const { arToolkitContext }: { arToolkitContext: ArToolkitContext } = useAR();
+  const {
+    ArMarkerControls,
+    ArToolkitContext,
+  } = require("@ar-js-org/ar.js/three.js/build/ar-threex");
+
+  const { arToolkitContext }: { arToolkitContext: typeof ArToolkitContext } = useAR();
   const [isFound, setIsFound] = useState(false);
-  useEffect( () => {
+  useEffect(() => {
     if (!arToolkitContext) {
       return;
     }
@@ -46,7 +50,14 @@ const ARMarker = ({
       const index = arToolkitContext._arMarkersControls.indexOf(markerControls);
       arToolkitContext._arMarkersControls.splice(index, 1);
     };
-  }, [ arToolkitContext, barcodeValue, patternUrl, params, type]);
+  }, [
+    arToolkitContext,
+    ArMarkerControls,
+    barcodeValue,
+    patternUrl,
+    params,
+    type,
+  ]);
 
   useFrame(() => {
     if ((markerRoot.current as any) && (markerRoot.current as any).visible && !isFound) {
