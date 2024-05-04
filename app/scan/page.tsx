@@ -2,7 +2,6 @@
 
 import { ARCanvas, ARMarker } from "@/components/ar";
 import { OrbitControls, PresentationControls, useGLTF } from "@react-three/drei";
-
 interface GlProps {
   gl: {
     antialias: boolean;
@@ -13,7 +12,9 @@ interface GlProps {
 }
 
 export default function Scan() {
-    const glb = useGLTF('/anime_base_mesh_f_animated/scene.gltf')
+    // const glb = useGLTF(
+    //   `${process.env.NEXT_PUBLIC_Host}/porsche_gt3_rs/scene.gltf`
+    // );
 
 
   return (
@@ -33,6 +34,7 @@ export default function Scan() {
         // className="bg-pink-600 "
       >
         <ambientLight />
+        <pointLight position={[0, 0, 20]} intensity={20.0} />
         <pointLight position={[10, 10, 0]} intensity={10.0} />
         <ARMarker
           params={{ smooth: true }}
@@ -42,7 +44,7 @@ export default function Scan() {
             console.log("Marker Found");
           }}
         >
-          <OrbitControls />
+          {/* <OrbitControls /> */}
           <PresentationControls
             enabled={true} // the controls can be disabled by setting this to false
             global={true} // Spin globally or by dragging the model
@@ -52,20 +54,18 @@ export default function Scan() {
             zoom={1} // Zoom factor when half the polar-max is reached
             rotation={[0, 0, 0]} // Default rotation
             // polar={[0, Math.PI / 2]} // Vertical limits
-            azimuth={[-Infinity, Infinity]} // Horizontal limits
+            // azimuth={[-Infinity, Infinity]} // Horizontal limits
             config={{ mass: 1, tension: 170, friction: 26 }} // Spring config
           >
-            {/* <mesh
+            <mesh
               onClick={(e) => {
-                alert("click");
-                console.log(e);
-                console.log("click");
+                alert("Clicked on the mesh");
               }}
             >
               <boxGeometry args={[1, 1, 1]} />
               <meshStandardMaterial color={"hotpink"} />
-            </mesh> */}
-            <primitive object={glb.scene} />
+            </mesh>
+            {/* <primitive object={glb.scene} /> */}
           </PresentationControls>
         </ARMarker>
       </ARCanvas>
