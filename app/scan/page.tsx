@@ -1,7 +1,7 @@
 "use client";
 
 import { ARCanvas, ARMarker } from "@/components/ar";
-import { OrbitControls, PresentationControls } from "@react-three/drei";
+import { OrbitControls, PresentationControls, useGLTF } from "@react-three/drei";
 
 interface GlProps {
   gl: {
@@ -13,6 +13,9 @@ interface GlProps {
 }
 
 export default function Scan() {
+    const glb = useGLTF('/anime_base_mesh_f_animated/scene.gltf')
+
+
   return (
     <main className="h-screen">
       <ARCanvas
@@ -42,17 +45,17 @@ export default function Scan() {
           <OrbitControls />
           <PresentationControls
             enabled={true} // the controls can be disabled by setting this to false
-            global={false} // Spin globally or by dragging the model
+            global={true} // Spin globally or by dragging the model
             cursor={true} // Whether to toggle cursor style on drag
             snap={false} // Snap-back to center (can also be a spring config)
             speed={1} // Speed factor
             zoom={1} // Zoom factor when half the polar-max is reached
             rotation={[0, 0, 0]} // Default rotation
-            polar={[0, Math.PI / 2]} // Vertical limits
+            // polar={[0, Math.PI / 2]} // Vertical limits
             azimuth={[-Infinity, Infinity]} // Horizontal limits
             config={{ mass: 1, tension: 170, friction: 26 }} // Spring config
           >
-            <mesh
+            {/* <mesh
               onClick={(e) => {
                 alert("click");
                 console.log(e);
@@ -61,7 +64,8 @@ export default function Scan() {
             >
               <boxGeometry args={[1, 1, 1]} />
               <meshStandardMaterial color={"hotpink"} />
-            </mesh>
+            </mesh> */}
+            <primitive object={glb.scene} />
           </PresentationControls>
         </ARMarker>
       </ARCanvas>
