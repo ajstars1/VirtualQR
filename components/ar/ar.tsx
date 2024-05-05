@@ -1,3 +1,4 @@
+'use client';
 import {
   ArToolkitContext
 } from "@ar-js-org/ar.js/three.js/build/ar-threex";

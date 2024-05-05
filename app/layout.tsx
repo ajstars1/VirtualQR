@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "AR Testing",
-  description: "AR Testing",
+  title: "Virtual QR",
+  description: "Feel the magic of AR with Virtual QR ",
 };
 
 export default function RootLayout({
@@ -16,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`homeScreenBody ${inter.className}`}>{children}</body>
+      <body className={`homeScreenBody`}>{children}</body>
     </html>
   );
 }

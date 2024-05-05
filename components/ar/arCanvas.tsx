@@ -1,7 +1,8 @@
-import React, { Suspense } from "react"
-import { Canvas, events } from "@react-three/fiber"
+"use client";
+import React, { Suspense } from "react";
+import { Canvas, events } from "@react-three/fiber";
 
-import { AR } from "./ar"
+import { AR } from "./ar";
 
 interface ARCanvasProps {
   arEnabled?: boolean;
@@ -29,12 +30,11 @@ const eventManagerFactory = (state: any) => ({
   compute(event: any, state: any) {
     state.pointer.set(
       (event.clientX / state.size.width) * 2 - 1,
-      -(event.clientY / state.size.height) * 2 + 1,
-    )
-    state.raycaster.setFromCamera(state.pointer, state.camera)
+      -(event.clientY / state.size.height) * 2 + 1
+    );
+    state.raycaster.setFromCamera(state.pointer, state.camera);
   },
-})
-
+});
 
 const ARCanvas = ({
   arEnabled = true,
@@ -48,32 +48,31 @@ const ARCanvas = ({
   onCameraStreamReady,
   onCameraStreamError,
   ...props
-}:ARCanvasProps) => (
+}: ARCanvasProps) => (
   <Canvas
     events={eventManagerFactory}
     camera={arEnabled ? { position: [0, 0, 0] } : props.camera}
     {...props}
   >
-    <Suspense fallback={"...Loading"} >
-
-    {arEnabled ? (
-      <AR
-        tracking={tracking}
-        patternRatio={patternRatio}
-        matrixCodeType={matrixCodeType}
-        detectionMode={detectionMode}
-        sourceType={sourceType}
-        cameraParametersUrl={cameraParametersUrl}
-        onCameraStreamReady={onCameraStreamReady}
-        onCameraStreamError={onCameraStreamError}
-      >
-        {children}
-      </AR>
-    ) : (
-      children
-    )}
-</Suspense>
+    <Suspense fallback={"...Loading"}>
+      {arEnabled ? (
+        <AR
+          tracking={tracking}
+          patternRatio={patternRatio}
+          matrixCodeType={matrixCodeType}
+          detectionMode={detectionMode}
+          sourceType={sourceType}
+          cameraParametersUrl={cameraParametersUrl}
+          onCameraStreamReady={onCameraStreamReady}
+          onCameraStreamError={onCameraStreamError}
+        >
+          {children}
+        </AR>
+      ) : (
+        children
+      )}
+    </Suspense>
   </Canvas>
 );
 
-export default ARCanvas
+export default ARCanvas;

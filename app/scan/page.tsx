@@ -1,5 +1,6 @@
 "use client";
 
+import Model from "@/components/Model";
 import { ARCanvas, ARMarker } from "@/components/ar";
 import { OrbitControls, PresentationControls, useGLTF } from "@react-three/drei";
 interface GlProps {
@@ -11,11 +12,8 @@ interface GlProps {
   };
 }
 
-export default function Scan() {
-    // const glb = useGLTF(
-    //   `${process.env.NEXT_PUBLIC_Host}/porsche_gt3_rs/scene.gltf`
-    // );
-
+export default  function Scan() {
+  
 
   return (
     <main className="h-screen">
@@ -56,15 +54,16 @@ export default function Scan() {
             // azimuth={[-Infinity, Infinity]} // Horizontal limits
             config={{ mass: 1, tension: 170, friction: 26 }} // Spring config
           >
-            <mesh
+            {/* <mesh
               onClick={(e) => {
                 alert("Clicked on the mesh");
               }}
             >
               <boxGeometry args={[1, 1, 1]} />
               <meshStandardMaterial color={"hotpink"} />
-            </mesh>
-            {/* <primitive object={glb.scene} /> */}
+            </mesh> */}
+
+            <Model />
           </PresentationControls>
         </ARMarker>
       </ARCanvas>

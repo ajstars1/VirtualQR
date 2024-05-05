@@ -1,16 +1,17 @@
-import { useFrame } from "@react-three/fiber"
-import React, { useEffect, useRef, useState } from "react"
+"use client";
+import { useFrame } from "@react-three/fiber";
+import React, { useEffect, useRef, useState } from "react";
 
-import { useAR } from "./ar"
+import { useAR } from "./ar";
 
 interface ARMarkerProps {
-  type: "pattern" | "barcode"
-  barcodeValue?: string
-  patternUrl?: string
-  params?: any
-  onMarkerFound?: () => void
-  onMarkerLost?: () => void
-  children: React.ReactNode
+  type: "pattern" | "barcode";
+  barcodeValue?: string;
+  patternUrl?: string;
+  params?: any;
+  onMarkerFound?: () => void;
+  onMarkerLost?: () => void;
+  children: React.ReactNode;
 }
 
 const ARMarker = ({
@@ -23,13 +24,14 @@ const ARMarker = ({
   onMarkerLost,
 }: ARMarkerProps) => {
   const markerRoot = useRef();
- 
+
   const {
     ArMarkerControls,
     ArToolkitContext,
   } = require("@ar-js-org/ar.js/three.js/build/ar-threex");
 
-  const { arToolkitContext }: { arToolkitContext: typeof ArToolkitContext } = useAR();
+  const { arToolkitContext }: { arToolkitContext: typeof ArToolkitContext } =
+    useAR();
   const [isFound, setIsFound] = useState(false);
   useEffect(() => {
     if (!arToolkitContext) {
@@ -60,12 +62,20 @@ const ARMarker = ({
   ]);
 
   useFrame(() => {
-    if ((markerRoot.current as any) && (markerRoot.current as any).visible && !isFound) {
+    if (
+      (markerRoot.current as any) &&
+      (markerRoot.current as any).visible &&
+      !isFound
+    ) {
       setIsFound(true);
       if (onMarkerFound) {
         onMarkerFound();
       }
-    } else if ((markerRoot.current as any) && !(markerRoot.current as any).visible && isFound) {
+    } else if (
+      (markerRoot.current as any) &&
+      !(markerRoot.current as any).visible &&
+      isFound
+    ) {
       setIsFound(false);
       if (onMarkerLost) {
         onMarkerLost();
@@ -76,4 +86,4 @@ const ARMarker = ({
   return <group ref={markerRoot as any}>{children}</group>;
 };
 
-export default ARMarker
+export default ARMarker;
