@@ -62,8 +62,8 @@ const AR = React.memo(function  AR({
   const onResize = useCallback(() => {
     const { arToolkitContext, arToolkitSource } = arContext;
 
-    arToolkitSource.onResizeElement();
-    arToolkitSource.copyElementSizeTo(gl.domElement);
+    // arToolkitSource.onResizeElement();
+    // arToolkitSource.copyElementSizeTo(gl.domElement);
     if (arToolkitContext.arController !== null) {
       arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas);
       camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
@@ -88,6 +88,11 @@ const AR = React.memo(function  AR({
         videoDomElemSelector
       ) as HTMLVideoElement;
       video.style.position = "fixed";
+      video.style.width = '100%';
+      video.style.height = '100%';
+      video.style.borderRadius = '20px'
+
+      // video.style.maxWidth = "none";
 
       video.onloadedmetadata = () => {
         console.log(
@@ -95,6 +100,7 @@ const AR = React.memo(function  AR({
           video.videoWidth,
           video.videoHeight
         );
+        // console.log("FHHHELSFLS:::",arContext);
 
         if (video.videoWidth > video.videoHeight) {
           arContext.arToolkitContext.arController.orientation = "landscape";

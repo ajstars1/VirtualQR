@@ -27,11 +27,10 @@ export default function Scan() {
         }}
         onCameraStreamReady={() => console.log("Camera stream ready")}
         onCameraStreamError={() => console.error("Camera stream error")}
-        // onCreated={({ gl }:GlProps) => {
-        //   // gl.setSize(window.innerWidth, window.innerHeight);
-        //   gl.setSize(1200, 100);
-        // }}
-        // className="bg-pink-600 "
+        onCreated={({ gl }:GlProps) => {
+          gl.setSize(window.innerWidth, window.innerHeight);
+          // gl.setSize(1200, 100);
+        }}
       >
         <ambientLight />
         <pointLight position={[0, 0, 20]} intensity={20.0} />
