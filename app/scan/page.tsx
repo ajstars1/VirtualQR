@@ -54,16 +54,16 @@ export default  function Scan() {
             // azimuth={[-Infinity, Infinity]} // Horizontal limits
             config={{ mass: 1, tension: 170, friction: 26 }} // Spring config
           >
-            {/* <mesh
+            <mesh
               onClick={(e) => {
                 alert("Clicked on the mesh");
               }}
             >
               <boxGeometry args={[1, 1, 1]} />
               <meshStandardMaterial color={"hotpink"} />
-            </mesh> */}
+            </mesh>
 
-            <Model />
+            {/* <Model /> */}
           </PresentationControls>
         </ARMarker>
       </ARCanvas>
