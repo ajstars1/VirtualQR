@@ -16,7 +16,7 @@ export default  function Scan() {
   
 
   return (
-    <main className="h-screen">
+    <main className="h-[80vh]">
       <ARCanvas
         gl={{
           antialias: false,
