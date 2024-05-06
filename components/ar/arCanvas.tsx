@@ -22,6 +22,7 @@ interface ARCanvasProps {
     physicallyCorrectLights: boolean;
   };
   onCreated?: any;
+  className?: string;
 }
 
 const eventManagerFactory = (state: any) => ({
