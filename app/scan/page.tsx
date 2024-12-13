@@ -43,11 +43,25 @@ export default  function Scan() {
           gl.setSize(window.innerWidth, window.innerHeight);
           // gl.setSize(1200, 100);
         }}
-        className={'fixed z-50'}
+        className={"fixed z-50"}
       >
         {/* <ambientLight />
         <pointLight position={[0, 0, 20]} intensity={20.0} />
         <pointLight position={[10, 10, 0]} intensity={10.0} /> */}
+        <ambientLight />
+        <directionalLight
+          position={[-5, 5, 5]}
+          castShadow
+          shadow-mapSize={1024}
+        />
+
+        {/* <group position={[0.7, 1, 0]} rotation={[0, 0, 0]}>
+          <Suspense fallback={null}>
+            <Model />
+          </Suspense>
+        </group> */}
+        <OrbitControls />
+
         <ARMarker
           params={{ smooth: true }}
           type={"pattern"}
@@ -56,27 +70,23 @@ export default  function Scan() {
             console.log("Marker Found");
           }}
         >
-          <ambientLight />
-          <directionalLight
-            position={[-5, 5, 5]}
-            castShadow
-            shadow-mapSize={1024}
-          />
-          <group position={[0, 1, 0]} rotation={[-1,0,0]}>
+          <group position={[0, 1, 0]} rotation={[-1, 0, 0]}>
             <Suspense fallback={null}>
               <Model />
             </Suspense>
           </group>
-          <mesh
+        </ARMarker>
+
+        {/* <mesh
             rotation={[-0.5 * Math.PI, 0, 0]}
             position={[0, -1, 0]}
             receiveShadow
           >
-            {/* <planeBufferGeometry args={[10, 10, 1, 1]} /> */}
+            <planeBufferGeometry args={[10, 10, 1, 1]} />
             <shadowMaterial transparent opacity={0.2} />
-          </mesh>
-          <Rig />
-          {/* <OrbitControls />
+          </mesh> */}
+        {/* <Rig /> */}
+        {/* <OrbitControls />
           <PresentationControls
             enabled={true} // the controls can be disabled by setting this to false
             global={true} // Spin globally or by dragging the model
@@ -100,7 +110,7 @@ export default  function Scan() {
 
             <Model />
           </PresentationControls> */}
-        </ARMarker>
+        {/* </ARMarker> */}
       </ARCanvas>
     </main>
   );

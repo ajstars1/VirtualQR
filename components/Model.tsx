@@ -5,56 +5,56 @@ all actions and sets up a THREE.AnimationMixer for it so that you don't have to.
 All of the assets actions, action-names and clips are available in its output. 
 */
 
-import { useEffect, useState, useRef, MutableRefObject } from "react";
-import { useFrame } from "@react-three/fiber";
-import { useGLTF, useTexture, useAnimations } from "@react-three/drei";
-import { easing } from "maath";
-import { SkinnedMesh } from "three";
+import { useEffect } from "react";
+// import { useFrame } from "@react-three/fiber";
+import { useGLTF, useTexture, useAnimations, OrbitControls } from "@react-three/drei";
+// import { easing } from "maath";
+// import { SkinnedMesh } from "three";
 
 export default function Model(props:any) {
-  const halo = useRef<any>();
+  // const halo = useRef<any>();
   // Fetch model and a separate texture
-  const texture = useTexture("/stacy.jpg");
-  const { nodes, animations } = useGLTF("/stacy.glb");
+  // const texture = useTexture("/stacy.jpg");
+  const { nodes, animations } = useGLTF("/girl.glb");
   // Extract animation actions
   const { ref, actions, names } = useAnimations(animations);
   // Hover and animation-index states
-  const [hovered, setHovered] = useState(false);
-  const [index, setIndex] = useState(4);
+  // const [hovered, setHovered] = useState(false);
+  // const [index, setIndex] = useState(0);
 
   // Change cursor on hover-state
-  useEffect(
-    () => void (document.body.style.cursor = hovered ? "pointer" : "auto"),
-    [hovered]
-  );
+  // useEffect(
+  //   () => void (document.body.style.cursor = hovered ? "pointer" : "auto"),
+  //   [hovered]
+  // );
 
   // Change animation when the index changes
   useEffect(() => {
     // Reset and fade in animation after an index has been changed
     // if (actions[names[index]]) {
-      actions[names[index]]?.reset().fadeIn(0.5).play();
+      actions[names[0]]?.play();
       // In the clean-up phase, fade it out
     return () => {
-      actions[names[index]]?.fadeOut(0.5);
+      actions[names[0]]};
     }
-  }, [index, actions, names]);
+  );
 
-  useFrame((state, delta) => {
-    // Animate the selection halo
-    easing.damp3((halo.current as any)?.scale, hovered ? 1.15 : 1, 0.2, delta);
-    easing.dampC(
-      (halo.current as any)?.material.color,
-      hovered ? "hotpink" : "aquamarine",
-      0.2,
-      delta
-    );
-  });
+  // useFrame((state, delta) => {
+  //   // Animate the selection halo
+  //   easing.damp3((halo.current as any)?.scale, hovered ? 1.15 : 1, 0.2, delta);
+  //   easing.dampC(
+  //     (halo.current as any)?.material.color,
+  //     hovered ? "hotpink" : "aquamarine",
+  //     0.2,
+  //     delta
+  //   );
+  // });
 
   return (
     <group ref={ref} {...props} dispose={null}>
-      <group rotation={[Math.PI / 2, 0, 0]} scale={0.01}>
-        <primitive object={nodes.mixamorigHips} />
-        <skinnedMesh
+      <group rotation={[0, 0, 0]} scale={0.5}>
+        <primitive object={nodes.Sketchfab_model} />
+        {/* <skinnedMesh
           castShadow
           receiveShadow
           onPointerOver={() => setHovered(true)}
@@ -66,13 +66,13 @@ export default function Model(props:any) {
           scale={100}
         >
           <meshStandardMaterial map={texture} map-flipY={false} />
-          {/* <meshStandardMaterial map={texture} map-flipY={false} skinning /> */}
-        </skinnedMesh>
+          <meshStandardMaterial map={texture} map-flipY={false} skinning />
+        </skinnedMesh> */}
       </group>
-      <mesh ref={halo} receiveShadow position={[0, 1, -1]}>
+      {/* <mesh ref={halo} receiveShadow position={[0, 1, -1]}>
         <circleGeometry args={[1, 64]} />
         <meshStandardMaterial />
-      </mesh>
+      </mesh> */}
     </group>
   );
 }
