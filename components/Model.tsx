@@ -15,7 +15,9 @@ export default function Model(props:any) {
   // const halo = useRef<any>();
   // Fetch model and a separate texture
   // const texture = useTexture("/stacy.jpg");
-  const { nodes, animations } = useGLTF("/girl.glb");
+  // const { nodes, animations } = useGLTF("/girl.glb");
+  const { nodes, animations } = useGLTF("/Flamingo.glb");
+  console.log(nodes)
   // Extract animation actions
   const { ref, actions, names } = useAnimations(animations);
   // Hover and animation-index states
@@ -53,7 +55,8 @@ export default function Model(props:any) {
   return (
     <group ref={ref} {...props} dispose={null}>
       <group rotation={[0, 0, 0]} scale={0.5}>
-        <primitive object={nodes.Sketchfab_model} />
+        <primitive object={nodes.mesh_0} />
+      {/*  <primitive object={nodes.Sketchfab_model} /> */}
         {/* <skinnedMesh
           castShadow
           receiveShadow

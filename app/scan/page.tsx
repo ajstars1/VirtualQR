@@ -71,7 +71,12 @@ export default  function Scan() {
           }}
         >
           <group position={[0, 1, 0]} rotation={[-1, 0, 0]}>
-            <Suspense fallback={null}>
+            <Suspense fallback={
+              <mesh>
+                <boxGeometry args={[1, 1, 1]} />
+                <meshStandardMaterial color={"hotpink"} />
+              </mesh>
+            }>
               <Model />
             </Suspense>
           </group>
