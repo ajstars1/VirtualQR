@@ -1,35 +1,35 @@
 "use client";
 
-import Model from "@/components/Model";
-import { ARCanvas, ARMarker } from "@/components/ar";
+import "../App.scss";
 import AITalkingMan from "@/components/pageRender";
-import { LiveAPIProvider } from "@/contexts/LiveAPIContext";
-import { OrbitControls, PresentationControls, useGLTF } from "@react-three/drei";
-import { useFrame } from "@react-three/fiber";
-import { easing } from "maath";
-import { Suspense, useRef } from "react";
+
+
+
+import {  useRef } from "react";
 import { Bot} from 'lucide-react';
 import ControlTray from "@/components/control-tray/ControlTray";
-interface GlProps {
-  gl: {
-    antialias: boolean;
-    powerPreference: string;
-    physicallyCorrectLights: boolean;
-    setSize: (width: number, height: number) => void;
-  };
-}
+import { LiveAPIProvider } from "@/contexts/LiveAPIContext";
+
+// interface GlProps {
+//   gl: {
+//     antialias: boolean;
+//     powerPreference: string;
+//     physicallyCorrectLights: boolean;
+//     setSize: (width: number, height: number) => void;
+//   };
+// }
 
 
-function Rig() {
-  return useFrame((state, delta) => {
-    easing.damp3(
-      state.camera.position,
-      [1 + state.mouse.x / 4, 1.5 + state.mouse.y / 4, 2.5],
-      0.2,
-      delta
-    );
-  });
-}
+// function Rig() {
+//   return useFrame((state, delta) => {
+//     easing.damp3(
+//       state.camera.position,
+//       [1 + state.mouse.x / 4, 1.5 + state.mouse.y / 4, 2.5],
+//       0.2,
+//       delta
+//     );
+//   });
+// }
 export default  function Scan() {
   
 
@@ -44,7 +44,7 @@ export default  function Scan() {
    const videoRef = useRef<HTMLVideoElement>(null);
   return (
     <main className="h-[100vh]"> <LiveAPIProvider url={uri} apiKey={API_KEY}>
-    {/* <div className="relative min-h-screen bg-black"> */}
+    <div className="relative min-h-screen bg-black">
       {/* Original 3D Canvas Content */}
      
       <div className="min-h-screen bg-transparent flex items-center justify-center">
@@ -161,7 +161,7 @@ export default  function Scan() {
       
         {/* Bottom Sticker */}
       </div>
-    {/* </div> */}
+    </div>
     <ControlTray
       videoRef={videoRef}
       supportsVideo={false}
