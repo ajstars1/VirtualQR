@@ -10,16 +10,23 @@
   },
   "dependencies": {
     "@ar-js-org/ar.js": "^3.4.5",
+    "@google/generative-ai": "^0.24.0",
     "@react-three/drei": "^9.105.6",
     "@react-three/fiber": "^8.16.3",
     "aframe": "^1.5.0",
+    "classnames": "^2.5.1",
+    "eventemitter3": "^5.0.1",
+    "lodash": "^4.17.21",
+    "lucide-react": "^0.479.0",
     "maath": "^0.10.7",
     "next": "14.2.3",
     "react": "^18",
     "react-dom": "^18",
+    "sass": "^1.85.1",
     "three": "^0.164.1"
   },
   "devDependencies": {
+    "@types/lodash": "^4.17.16",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

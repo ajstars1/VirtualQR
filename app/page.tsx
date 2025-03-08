@@ -15,7 +15,7 @@ const Home = () => {
             rel="noopener noreferrer"
           >
             By{" "}
-            <Link target='_blank' href={'https://ajstars.me'}>
+            <Link target='_blank' href={'https://ajstars.in'}>
               <code className="font-mono text-2xl font-bold">AJ_Stars</code>
             </Link>
           </span>

@@ -2,10 +2,14 @@
 
 import Model from "@/components/Model";
 import { ARCanvas, ARMarker } from "@/components/ar";
+import AITalkingMan from "@/components/pageRender";
+import { LiveAPIProvider } from "@/contexts/LiveAPIContext";
 import { OrbitControls, PresentationControls, useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import { easing } from "maath";
-import { Suspense } from "react";
+import { Suspense, useRef } from "react";
+import { Bot} from 'lucide-react';
+import ControlTray from "@/components/control-tray/ControlTray";
 interface GlProps {
   gl: {
     antialias: boolean;
@@ -29,9 +33,27 @@ function Rig() {
 export default  function Scan() {
   
 
+  const API_KEY = process.env.NEXT_PUBLIC_REACT_APP_GEMINI_API_KEY as string;
+
+  if (typeof API_KEY !== "string") {
+    throw new Error("set REACT_APP_GEMINI_API_KEY in .env");
+  }
+  
+  const host = "generativelanguage.googleapis.com";
+  const uri = `wss://${host}/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent`;
+   const videoRef = useRef<HTMLVideoElement>(null);
   return (
-    <main className="h-[100vh]">
-      <ARCanvas
+    <main className="h-[100vh]"> <LiveAPIProvider url={uri} apiKey={API_KEY}>
+    {/* <div className="relative min-h-screen bg-black"> */}
+      {/* Original 3D Canvas Content */}
+     
+      <div className="min-h-screen bg-transparent flex items-center justify-center">
+        <div id="canvas-container">
+          {/* Your existing 3D canvas content */}
+          <AITalkingMan />
+        </div>
+      </div>
+      {/* <ARCanvas
         gl={{
           antialias: false,
           powerPreference: "default",
@@ -44,25 +66,32 @@ export default  function Scan() {
           // gl.setSize(1200, 100);
         }}
         className={"fixed z-50"}
-      >
+      > 
+       <div className="min-h-screen bg-transparent flex items-center justify-center">
+        <div id="canvas-container"> */}
+          {/* Your existing 3D canvas content */}
+          {/* <AITalkingMan />
+        </div>
+      </div> */}
+
         {/* <ambientLight />
         <pointLight position={[0, 0, 20]} intensity={20.0} />
         <pointLight position={[10, 10, 0]} intensity={10.0} /> */}
-        <ambientLight />
+        {/* <ambientLight />
         <directionalLight
           position={[-5, 5, 5]}
           castShadow
           shadow-mapSize={1024}
-        />
+        /> */}
 
         {/* <group position={[0.7, 1, 0]} rotation={[0, 0, 0]}>
           <Suspense fallback={null}>
             <Model />
           </Suspense>
         </group> */}
-        <OrbitControls />
+        {/* <OrbitControls /> */}
 
-        <ARMarker
+        {/* <ARMarker
           params={{ smooth: true }}
           type={"pattern"}
           patternUrl={"/data/patt.hiro"}
@@ -80,7 +109,7 @@ export default  function Scan() {
               <Model />
             </Suspense>
           </group>
-        </ARMarker>
+        </ARMarker> */}
 
         {/* <mesh
             rotation={[-0.5 * Math.PI, 0, 0]}
@@ -116,7 +145,31 @@ export default  function Scan() {
             <Model />
           </PresentationControls> */}
         {/* </ARMarker> */}
-      </ARCanvas>
+      {/* </ARCanvas> */}
+            {/* Sticker-style Banners */}
+            <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+        {/* Top Title Sticker */}
+        <div className="absolute top-6 left-1/2 transform -translate-x-1/2 bg-white rounded-lg px-6 py-3 rotate-[-1deg] shadow-lg pointer-events-auto hover:rotate-[1deg] transition-transform">
+          <div className="flex items-center gap-2">
+            <Bot className="h-6 w-6 text-black" />
+            <h1 className="text-2xl font-bold text-black">
+              0Unveiled&apos;s Demo assistant
+            </h1>
+          </div>
+        </div>
+
+      
+        {/* Bottom Sticker */}
+      </div>
+    {/* </div> */}
+    <ControlTray
+      videoRef={videoRef}
+      supportsVideo={false}
+      // onVideoStreamChange={setVideoStream}
+    >
+      {/* put your own buttons here */}
+    </ControlTray>
+  </LiveAPIProvider>
     </main>
   );
 }
