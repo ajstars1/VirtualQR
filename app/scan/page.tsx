@@ -146,9 +146,14 @@ export default  function Scan() {
           </PresentationControls> */}
         {/* </ARMarker> */}
       {/* </ARCanvas> */}
+
+
+
+
+
             {/* Sticker-style Banners */}
-            <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
-        {/* Top Title Sticker */}
+            {/* <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+      
         <div className="absolute top-6 left-1/2 transform -translate-x-1/2 bg-white rounded-lg px-6 py-3 rotate-[-1deg] shadow-lg pointer-events-auto hover:rotate-[1deg] transition-transform">
           <div className="flex items-center gap-2">
             <Bot className="h-6 w-6 text-black" />
@@ -157,16 +162,13 @@ export default  function Scan() {
             </h1>
           </div>
         </div>
-
-      
-        {/* Bottom Sticker */}
-      {/* </div> */}
-    </div>
+      </div> */}
+    {/* </div> */}
     <ControlTray
       videoRef={videoRef}
       supportsVideo={false}
       // onVideoStreamChange={setVideoStream}
-    >
+      >
       {/* put your own buttons here */}
     </ControlTray>
   </LiveAPIProvider>
