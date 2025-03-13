@@ -44,7 +44,7 @@ export default  function Scan() {
    const videoRef = useRef<HTMLVideoElement>(null);
   return (
     <main className="h-[100vh]"> <LiveAPIProvider url={uri} apiKey={API_KEY}>
-    <div className="relative min-h-screen bg-black">
+    {/* <div className="relative min-h-screen bg-black"> */}
       {/* Original 3D Canvas Content */}
      
       <div className="min-h-screen bg-transparent flex items-center justify-center">
@@ -160,7 +160,7 @@ export default  function Scan() {
 
       
         {/* Bottom Sticker */}
-      </div>
+      {/* </div> */}
     </div>
     <ControlTray
       videoRef={videoRef}
