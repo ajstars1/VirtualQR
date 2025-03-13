@@ -1346,9 +1346,9 @@ export default function AITalkingMan() {
               </mesh>
             }>
                  <TalkingManModel play={isPlaying} />
-                 <div className="bg-white p-4 rounded-lg shadow-lg absolute top-0 left-0">
+                 {/* <div className="bg-white p-4 rounded-lg shadow-lg absolute top-0 left-0">
                         Hello testing 123
-                 </div>
+                 </div> */}
             </Suspense>
           </group>
         </ARMarker>
