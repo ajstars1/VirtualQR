@@ -1309,7 +1309,7 @@ export default function AITalkingMan() {
           // gl.setSize(1200, 100);
         }}
         camera={{ position: [0, 1.5, 3] }}
-        className={"fixed z-50"}
+        className={"fixed z-10"}
       > 
      
 

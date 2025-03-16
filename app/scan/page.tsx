@@ -50,7 +50,7 @@ export default  function Scan() {
       <div className="min-h-screen bg-transparent flex items-center justify-center">
         <div id="canvas-container">
           {/* Your existing 3D canvas content */}
-          {/* <AITalkingMan /> */}
+          <AITalkingMan />
         </div>
       </div>
       {/* <ARCanvas
