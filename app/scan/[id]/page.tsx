@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 
 import "../App.scss";
 import AITalkingMan from "@/components/pageRender";
@@ -6,7 +6,7 @@ import AITalkingMan from "@/components/pageRender";
 
 
 import {  useRef } from "react";
-import { Bot} from 'lucide-react';
+
 import ControlTray from "@/components/control-tray/ControlTray";
 import { LiveAPIProvider } from "@/contexts/LiveAPIContext";
 
@@ -30,7 +30,11 @@ import { LiveAPIProvider } from "@/contexts/LiveAPIContext";
 //     );
 //   });
 // }
-export default  function Scan() {
+export default  function Scan({ params }: { params: { id: string } }) {
+
+  if(params.id != "9x3xaj6"){
+    return null;
+  }
   
 
   const API_KEY = process.env.NEXT_PUBLIC_REACT_APP_GEMINI_API_KEY as string;
