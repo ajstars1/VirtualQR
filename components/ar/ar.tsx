@@ -69,7 +69,7 @@ const AR = React.memo(function  AR({
       arToolkitSource.copyElementSizeTo(arToolkitContext.arController.canvas);
       camera.projectionMatrix.copy(arToolkitContext.getProjectionMatrix());
     }
-  }, [gl, arContext, camera]);
+  }, [ arContext, camera]);
 
   const onUnmount = useCallback(() => {
     const video = document.querySelector(

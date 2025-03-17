@@ -1,6 +1,7 @@
 {
-  "name": "MyWebSite",
-  "short_name": "MySite",
+  "name": "XR Card App",
+  "short_name": "XR Card",
+  "description": "XR Card with Personlieased AI Assistant",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",

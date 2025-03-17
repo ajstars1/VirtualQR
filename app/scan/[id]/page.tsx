@@ -1,6 +1,6 @@
-// "use client";
+"use client";
 
-import "../App.scss";
+import "@/app/App.scss";
 import AITalkingMan from "@/components/pageRender";
 
 
@@ -31,7 +31,8 @@ import { LiveAPIProvider } from "@/contexts/LiveAPIContext";
 //   });
 // }
 export default  function Scan({ params }: { params: { id: string } }) {
-
+  const videoRef = useRef<HTMLVideoElement>(null);
+  
   if(params.id != "9x3xaj6"){
     return null;
   }
@@ -45,7 +46,7 @@ export default  function Scan({ params }: { params: { id: string } }) {
   
   const host = "generativelanguage.googleapis.com";
   const uri = `wss://${host}/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent`;
-   const videoRef = useRef<HTMLVideoElement>(null);
+  
   return (
     <main className="h-[100vh]"> <LiveAPIProvider url={uri} apiKey={API_KEY}>
     {/* <div className="relative min-h-screen bg-black"> */}
