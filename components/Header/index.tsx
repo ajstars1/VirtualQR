@@ -4,10 +4,11 @@ import React, { useState, useEffect } from 'react';
 import Button from '../Button';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { useRouter } from 'next/router';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  // const location = useLocation();
+  const location = useRouter();
   
   useEffect(() => {
     const handleScroll = () => {
