@@ -1,6 +1,6 @@
 "use client";
 
-import React, {  useState, useEffect, Suspense } from "react";
+import React, {  useState, useEffect, Suspense, useMemo, useCallback } from "react";
 import { OrbitControls } from "@react-three/drei";
 import { type FunctionDeclaration, SchemaType } from "@google/generative-ai";
 import { useLiveAPIContext } from "@/contexts/LiveAPIContext";
@@ -34,6 +34,7 @@ const declaration: FunctionDeclaration = {
 export default function AITalkingMan() {
   // const [isListening, setIsListening] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [aiResponse, setAiResponse] = useState('');
 //   const [error, setError] = useState<string | null>(null);
   const { client, setConfig } = useLiveAPIContext();
 
@@ -1106,15 +1107,20 @@ export default function AITalkingMan() {
    });
 
   }, [setConfig]);
-
+  const handleContent = useCallback((content:any) => {
+        // Assuming you need to pass some data to ARCanvas
+        setAiResponse(content.modelTurn.parts[0].text);
+        setIsPlaying(true);
+      }, []); // Dependency array is empty because handleContent doesn't depend on state
+    
   // Handle AI responses and animations
-  useEffect(() => {
+//   useEffect(() => {
     let animationTimeout: NodeJS.Timeout;
 
-    const onContent = () => {
-      // Model is generating content, start animation
-      setIsPlaying(true);
-    };
+//     const onContent = () => {
+//       // Model is generating content, start animation
+//       setIsPlaying(true);
+//     };
 
     const onTurnComplete = () => {
       // Add a small delay before stopping animation to account for any audio playback
@@ -1162,27 +1168,51 @@ export default function AITalkingMan() {
         }
       }
     };
-
-    // Register event handlers
-    client
-      .on("content", onContent)
+// Dependency array is empty because these functions don't depend on state
+    React.useEffect(() => {
+        client
+      .on("content", handleContent)
       .on("turncomplete", onTurnComplete)
       .on("audio", onAudio)
       .on("toolcall", onToolCall);
+        return () => { if (animationTimeout) {
+                clearTimeout(animationTimeout);
+              }
+          client.off('content', handleContent)
+          .off('turncomplete', onTurnComplete)
+                .off('audio', onAudio)
+                .off('toolcall', onToolCall);
+        };
+      }, [client, handleContent,onTurnComplete,onAudio,onToolCall]);
+//     // Register event handlers
+//     client
+//       .on("content", handleContent)
+//       .on("turncomplete", onTurnComplete)
+//       .on("audio", onAudio)
+//       .on("toolcall", onToolCall);
 
     // Cleanup
-    return () => {
-      if (animationTimeout) {
-        clearTimeout(animationTimeout);
-      }
-      client
-        .off("content", onContent)
-        .off("turncomplete", onTurnComplete)
-        .off("audio", onAudio)
-        .off("toolcall", onToolCall);
-    };
-  }, [client]);
+//     return () => {
+//       if (animationTimeout) {
+//         clearTimeout(animationTimeout);
+//       }
+//       client
+//         .off("content", onContent)
+//         .off("turncomplete", onTurnComplete)
+//         .off("audio", onAudio)
+//         .off("toolcall", onToolCall);
+//     };
+//   }, [client]);
 
+   // Memoize a value to pass to ARCanvas
+   const dataForARCanvas = useMemo(() => {
+        return {
+          Playing: isPlaying,
+          reponse: aiResponse,
+          // ... other data ...
+        };
+      }, [isPlaying]); // Only re-create if aiResponse changes
+    
   // Rest of your component code...
   return (
 //     <div className="relative w-full h-screen">
@@ -1194,6 +1224,11 @@ export default function AITalkingMan() {
 //       </Canvas>
 //       {/* ... rest of your UI components ... */}
 //     </div>
+<div>
+        <div className="bg-white p-4 rounded-lg shadow-lg absolute top-0 left-0">
+        {aiResponse}
+
+</div>
  <ARCanvas
         gl={{
           antialias: false,
@@ -1243,7 +1278,7 @@ export default function AITalkingMan() {
                 <meshStandardMaterial color={"hotpink"} />
               </mesh>
             }>
-                 <TalkingManModel play={isPlaying} />
+                 <TalkingManModel play={dataForARCanvas.Playing} />
                  {/* <div className="bg-white p-4 rounded-lg shadow-lg absolute top-0 left-0">
                         Hello testing 123
                  </div> */}
@@ -1252,6 +1287,7 @@ export default function AITalkingMan() {
         </ARMarker>
 
       </ARCanvas>
+      </div>
   );
 }
 

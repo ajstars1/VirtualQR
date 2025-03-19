@@ -37,7 +37,7 @@ const eventManagerFactory = (state: any) => ({
   },
 });
 
-const ARCanvas = ({
+const ARCanvas =  React.memo(({
   arEnabled = true,
   tracking = true,
   children,
@@ -74,6 +74,6 @@ const ARCanvas = ({
       )}
     </Suspense>
   </Canvas>
-);
+));
 
 export default ARCanvas;
