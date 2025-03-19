@@ -76,4 +76,5 @@ const ARCanvas =  React.memo(({
   </Canvas>
 ));
 
+ARCanvas.displayName = 'ARCanvas';
 export default ARCanvas;

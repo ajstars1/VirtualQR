@@ -15,6 +15,7 @@ interface GlProps {
           setSize: (width: number, height: number) => void;
         };
       }
+let animationTimeout :   NodeJS.Timeout;
 
 const declaration: FunctionDeclaration = {
   name: "generate_audio_response",
@@ -1115,7 +1116,7 @@ export default function AITalkingMan() {
     
   // Handle AI responses and animations
 //   useEffect(() => {
-    let animationTimeout: NodeJS.Timeout;
+//     let animationTimeout: NodeJS.Timeout;
 
 //     const onContent = () => {
 //       // Model is generating content, start animation
@@ -1183,7 +1184,7 @@ export default function AITalkingMan() {
                 .off('audio', onAudio)
                 .off('toolcall', onToolCall);
         };
-      }, [client, handleContent,onTurnComplete,onAudio,onToolCall]);
+      }, [client,animationTimeout, handleContent,onTurnComplete,onAudio,onToolCall]);
 //     // Register event handlers
 //     client
 //       .on("content", handleContent)
@@ -1211,7 +1212,7 @@ export default function AITalkingMan() {
           reponse: aiResponse,
           // ... other data ...
         };
-      }, [isPlaying]); // Only re-create if aiResponse changes
+      }, [isPlaying,aiResponse]); // Only re-create if aiResponse changes
     
   // Rest of your component code...
   return (
