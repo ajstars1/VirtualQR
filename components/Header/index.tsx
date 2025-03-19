@@ -4,11 +4,11 @@ import React, { useState, useEffect } from 'react';
 import Button from '../Button';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
-import { useRouter } from 'next/router';
+import { usePathname  } from 'next/navigation';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const location = useRouter();
+  const pathname = usePathname();
   
   useEffect(() => {
     const handleScroll = () => {
@@ -23,7 +23,7 @@ const Header: React.FC = () => {
   }, []);
 
   const isActive = (path: string) => {
-    return location.pathname === path;
+    return pathname === path;
   };
 
   return (
